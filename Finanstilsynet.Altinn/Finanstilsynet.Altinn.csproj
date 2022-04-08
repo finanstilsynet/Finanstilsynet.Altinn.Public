@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net5.0</TargetFramework>
+	  <Authors>Lema</Authors>
+	  <Company>Finanstilsynet</Company>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Product>Finanstilsynet.Altinn</Product>
+	  <PackageId>Finanstilsynet.Altinn</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Altinn.App.Common" Version="4.33.0" />
+    <PackageReference Include="Altinn.App.PlatformServices" Version="4.33.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+</Project>
