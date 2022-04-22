@@ -7,6 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Product>Finanstilsynet.Altinn</Product>
     <PackageId>Finanstilsynet.Altinn</PackageId>
+    <RepositoryUrl>https://github.com/Finanstilsynet/Finanstilsynet.Altinn</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
