@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFramework>net5.0</TargetFramework>
-	  <Authors>Lema</Authors>
-	  <Company>Finanstilsynet</Company>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <Product>Finanstilsynet.Altinn</Product>
-	  <PackageId>Finanstilsynet.Altinn</PackageId>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Lema</Authors>
+    <Company>Finanstilsynet</Company>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Product>Finanstilsynet.Altinn</Product>
+    <PackageId>Finanstilsynet.Altinn</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
