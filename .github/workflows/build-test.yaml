@@ -4,7 +4,7 @@ name: build-test
 on:
   workflow_call:
 jobs:
-  build-test-deploy:
+  build-test:
     # Our apps runs on alpine, but using alpine_latest here doesn't work as we just get:
     # Waiting for a runner to pick up this job...
     # in github. We'll use Ubuntu for now
@@ -44,3 +44,19 @@ jobs:
           dotnet test \
           --configuration Release \
           --no-build
+      # While this step doesn't really belong here, we package the nuget library
+      # here to avoid requiring to much dotnet setup in the deploy workflow.
+      # Packaging requires a nuget restore, which requires the source too.
+      - name: Package
+        run: |
+          dotnet pack \
+          --configuration Release \
+          --no-restore \
+          --no-build \
+          /p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      - name: Upload nuget artifact for later workflows
+        uses: actions/upload-artifact@v3
+        with:
+          name: nupkg
+          # Note that starting with ** is a syntax error here, so we start with ./
+          path: ./**/Finanstilsynet.Altinn.*.nupkg

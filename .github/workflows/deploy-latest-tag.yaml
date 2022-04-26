@@ -11,17 +11,19 @@ jobs:
     # Waiting for a runner to pick up this job...
     # in github. We'll use Ubuntu for now
     runs-on: ubuntu-latest
+    needs: build-test
     steps:
-      - name: Package
-        run: |
-          dotnet pack \
-          --configuration Release \
-          --no-restore \
-          --no-build \
-          /p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '5.0.x'
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: nupkg
       - name: Publish
         run: |
-          dotnet nuget push Finanstilsynet.Altinn/bin/Release/Finanstilsynet.Altinn.${{ steps.gitversion.outputs.nuGetVersionV2 }}.nupkg \
+          dotnet nuget push **/Finanstilsynet.Altinn.*.nupkg \
           --skip-duplicate \
           --api-key ${{ secrets.GITHUB_TOKEN }} \
           --source https://nuget.pkg.github.com/Finanstilsynet/index.json
