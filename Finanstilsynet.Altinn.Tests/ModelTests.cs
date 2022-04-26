@@ -7,28 +7,26 @@ namespace Finanstilsynet.Altinn.Tests
     {
         public class A
         {
-            public B b;
+            public B B;
         }
 
         public class B
         {
-            public C c;
+            public C C;
         }
 
         public class C
         {
-            public int value;
+            public int Value;
         }
 
         [Fact]
         public void SetValue_WhenOK_SetsValue()
         {
-       
             A a = new A();
             int expected = 10;
-            Model.SetValue(() => a.b.c.value, expected);
-            Assert.Equal(expected, a.b.c.value);
-
+            Model.SetValue(() => a.B.C.Value, expected);
+            Assert.Equal(expected, a.B.C.Value);
         }
 
         [Fact]
@@ -36,7 +34,7 @@ namespace Finanstilsynet.Altinn.Tests
         {
             A a = null;
             Assert.Throws<ArgumentNullException>(() =>
-                Model.SetValue(() => a.b.c.value, 5));
+                Model.SetValue(() => a.B.C.Value, 5));
         }
 
         [Fact]
@@ -44,9 +42,9 @@ namespace Finanstilsynet.Altinn.Tests
         {
             A a = new A();
             B old = new B();
-            a.b = old;
-            Model.SetValue(() => a.b.c.value, 5);
-            Assert.Same(old, a.b);
+            a.B = old;
+            Model.SetValue(() => a.B.C.Value, 5);
+            Assert.Same(old, a.B);
         }
 
         [Fact]

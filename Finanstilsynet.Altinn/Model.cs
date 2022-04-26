@@ -27,29 +27,29 @@ namespace Finanstilsynet.Altinn
             }
         }
 
-        private static void SetValue(this MemberInfo m, object o, object v)
+        private static void SetValue(this MemberInfo m, object o, object? v)
         {
             switch (m.MemberType)
             {
                 case MemberTypes.Field:
-                    (m as FieldInfo).SetValue(o, v);
+                    (m as FieldInfo)!.SetValue(o, v);
                     break;
                 case MemberTypes.Property:
-                    (m as PropertyInfo).SetValue(o, v);
+                    (m as PropertyInfo)!.SetValue(o, v);
                     break;
                 default:
                     throw new InvalidOperationException($"{m.Name} is not a Field or Property. Can only set value for Fields or Properties.");
             }
         }
 
-        private static object GetValue(this MemberInfo m, object o)
+        private static object? GetValue(this MemberInfo m, object o)
         {
             switch (m.MemberType)
             {
                 case MemberTypes.Field:
-                    return (m as FieldInfo).GetValue(o);
+                    return (m as FieldInfo)!.GetValue(o);
                 case MemberTypes.Property:
-                    return (m as PropertyInfo).GetValue(o);
+                    return (m as PropertyInfo)!.GetValue(o);
                 default:
                     throw new InvalidOperationException($"{m.Name} is not a Field or Property. Can only get value for Fields or Properties.");
             }
@@ -61,7 +61,7 @@ namespace Finanstilsynet.Altinn
             {
                 case ConstantExpression c:
                 {
-                    var v = e.Member.GetValue(c.Value);
+                    var v = e.Member.GetValue(c.Value!);
                     if (v == null)
                     {
                         throw new ArgumentNullException($"Constant expression {e.Member.Name} is null");

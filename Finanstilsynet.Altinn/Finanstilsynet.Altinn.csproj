@@ -8,6 +8,7 @@
     <Product>Finanstilsynet.Altinn</Product>
     <PackageId>Finanstilsynet.Altinn</PackageId>
     <RepositoryUrl>https://github.com/Finanstilsynet/Finanstilsynet.Altinn</RepositoryUrl>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

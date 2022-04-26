@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Altinn.App.PlatformServices.Extensions;
@@ -15,7 +16,7 @@ namespace Finanstilsynet.Altinn
         /// <example>
         /// Concat(" a ", null, " c ") // "a c"
         /// </example>
-        public static string Concat(string firstname, string middlename, string lastname)
+        public static string Concat(string? firstname, string? middlename, string? lastname)
         {
             var sb = new StringBuilder();
 
@@ -25,19 +26,22 @@ namespace Finanstilsynet.Altinn
 
             sb.Append(firstname);
             if (!string.IsNullOrEmpty(firstname))
-                sb.Append(" ");
+                sb.Append(' ');
             sb.Append(middlename);
             if (!string.IsNullOrEmpty(middlename))
-                sb.Append(" ");
+                sb.Append(' ');
             sb.Append(lastname);
             return sb.ToString().Trim();
         }
 
-        /// Returns full name of logged in user
-        public static async Task<string> GetCurrentUserFullName(HttpContextAccessor httpContextAccessor, IProfile profileService)
+        /// Returns full name of logged in user. Throws if user cannot be located.
+        public static async Task<string> GetCurrentUserFullName(IHttpContextAccessor httpContextAccessor, IProfile profileService)
         {
-            var user = httpContextAccessor.HttpContext.User;
-            var userProfile = await profileService.GetUserProfile((int)user.GetUserIdAsInt());
+            var userId = httpContextAccessor.HttpContext?.User.GetUserIdAsInt();
+            if (!userId.HasValue)
+                throw new ArgumentNullException(nameof(httpContextAccessor), "Unable to get currently logged in Altinn user");
+
+            var userProfile = await profileService.GetUserProfile(userId.Value);
             return Concat(
                 userProfile.Party.Person.FirstName,
                 userProfile.Party.Person.MiddleName,

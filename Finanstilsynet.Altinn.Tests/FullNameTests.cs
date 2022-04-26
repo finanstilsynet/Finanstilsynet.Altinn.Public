@@ -1,5 +1,4 @@
 using Xunit;
-using Finanstilsynet.Altinn;
 
 namespace Finanstilsynet.Altinn.Tests
 {
@@ -17,7 +16,7 @@ namespace Finanstilsynet.Altinn.Tests
         [InlineData("  ", "  ", "  ", "")]
         public void FullName(string first, string middle, string last, string expected)
         {
-            var actual = Finanstilsynet.Altinn.FullName.Concat(first, middle, last);
+            var actual = Altinn.FullName.Concat(first, middle, last);
             Assert.Equal(expected, actual);
         }
     }

@@ -1,0 +1,27 @@
+name: deploy-latest-tag
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  build-test:
+    uses: ./.github/workflows/build-test.yaml
+  deploy:
+    # Our apps runs on alpine, but using alpine_latest here doesn't work as we just get:
+    # Waiting for a runner to pick up this job...
+    # in github. We'll use Ubuntu for now
+    runs-on: ubuntu-latest
+    steps:
+      - name: Package
+        run: |
+          dotnet pack \
+          --configuration Release \
+          --no-restore \
+          --no-build \
+          /p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      - name: Publish
+        run: |
+          dotnet nuget push Finanstilsynet.Altinn/bin/Release/Finanstilsynet.Altinn.${{ steps.gitversion.outputs.nuGetVersionV2 }}.nupkg \
+          --skip-duplicate \
+          --api-key ${{ secrets.GITHUB_TOKEN }} \
+          --source https://nuget.pkg.github.com/Finanstilsynet/index.json
