@@ -25,10 +25,10 @@ namespace Finanstilsynet.Altinn
 
             sb.Append(firstname);
             if (!string.IsNullOrEmpty(firstname))
-                sb.Append(" ");
+                sb.Append(' ');
             sb.Append(middlename);
             if (!string.IsNullOrEmpty(middlename))
-                sb.Append(" ");
+                sb.Append(' ');
             sb.Append(lastname);
             return sb.ToString().Trim();
         }
