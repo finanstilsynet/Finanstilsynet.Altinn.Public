@@ -34,15 +34,12 @@ namespace Finanstilsynet.Altinn
             return sb.ToString().Trim();
         }
 
-        /// Returns full name of logged in user
-        public static async Task<string> GetCurrentUserFullName(HttpContextAccessor httpContextAccessor, IProfile profileService)
+        /// Returns full name of logged in user. Throws if user cannot be located.
+        public static async Task<string> GetCurrentUserFullName(IHttpContextAccessor httpContextAccessor, IProfile profileService)
         {
-            if (httpContextAccessor?.HttpContext?.User == null)
-                throw new ArgumentNullException(nameof(httpContextAccessor), "Http context or user is null");
-
-            var userId = httpContextAccessor.HttpContext.User.GetUserIdAsInt();
+            var userId = httpContextAccessor.HttpContext?.User.GetUserIdAsInt();
             if (!userId.HasValue)
-                return string.Empty;
+                throw new ArgumentNullException(nameof(httpContextAccessor), "Unable to get currently logged in Altinn user");
 
             var userProfile = await profileService.GetUserProfile(userId.Value);
             return Concat(
