@@ -23,12 +23,10 @@ namespace Finanstilsynet.Altinn.Tests
         [Fact]
         public void SetValue_WhenOK_SetsValue()
         {
-       
             A a = new A();
             int expected = 10;
             Model.SetValue(() => a.B.C.Value, expected);
             Assert.Equal(expected, a.B.C.Value);
-
         }
 
         [Fact]
