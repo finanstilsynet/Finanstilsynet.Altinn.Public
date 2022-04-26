@@ -4,7 +4,7 @@ namespace Finanstilsynet.Altinn
 {
     public static class Helpers
     {
-        public static int Altinn3toAltinn2Language(string language) =>
+        public static int Altinn3ToAltinn2Language(string language) =>
             language switch
             {
                 "nb" => 1044,
