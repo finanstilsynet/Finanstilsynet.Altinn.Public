@@ -5,9 +5,9 @@
     <Authors>Lema</Authors>
     <Company>Finanstilsynet</Company>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Product>Finanstilsynet.Altinn</Product>
-    <PackageId>Finanstilsynet.Altinn</PackageId>
-    <RepositoryUrl>https://github.com/Finanstilsynet/Finanstilsynet.Altinn</RepositoryUrl>
+    <Product>Finanstilsynet.Altinn.Public</Product>
+    <PackageId>Finanstilsynet.Altinn.Public</PackageId>
+    <RepositoryUrl>https://github.com/Finanstilsynet/Finanstilsynet.Altinn.Public</RepositoryUrl>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
