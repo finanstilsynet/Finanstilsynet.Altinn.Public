@@ -23,7 +23,7 @@ jobs:
           name: nupkg
       - name: Publish
         run: |
-          dotnet nuget push **/Finanstilsynet.Altinn.*.nupkg \
+          dotnet nuget push **/Finanstilsynet.Altinn.Public.*.nupkg \
           --skip-duplicate \
           --api-key ${{ secrets.GITHUB_TOKEN }} \
           --source https://nuget.pkg.github.com/Finanstilsynet/index.json

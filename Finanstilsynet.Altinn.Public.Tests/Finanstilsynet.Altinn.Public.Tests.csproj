@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Finanstilsynet.Altinn\Finanstilsynet.Altinn.csproj" />
+    <ProjectReference Include="..\Finanstilsynet.Altinn.Public\Finanstilsynet.Altinn.Public.csproj" />
   </ItemGroup>
 
 </Project>

@@ -59,4 +59,4 @@ jobs:
         with:
           name: nupkg
           # Note that starting with ** is a syntax error here, so we start with ./
-          path: ./**/Finanstilsynet.Altinn.*.nupkg
+          path: ./**/Finanstilsynet.Altinn.Public.*.nupkg
