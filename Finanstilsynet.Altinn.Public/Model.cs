@@ -7,6 +7,25 @@ namespace Finanstilsynet.Altinn
     public static class Model
     {
         /// <summary>
+        /// <code>GetValue(() => a.b.c.d, "foo");</code> is equivalent to
+        /// <code>a?.b?.c?.d ?? "foo"</code>
+        /// <code>GetValue(() => a)</code> is equivalent to
+        /// <code>a ?? default</code>
+        /// </summary>
+        public static T? GetValue<T>(Expression<Func<T>> member, T? whenMissing = default)
+        {
+            if (member.Body is MemberExpression b)
+            {
+                var o = GetMember(b);
+                return o == null ? whenMissing : (T?)o;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Can only retrieve members, eg a.b.c, not {member.Body.NodeType}");
+            }
+        }
+
+        /// <summary>
         /// <code>SetValue(() => a.b.c.d, "foo");</code> is equivalent to
         /// <code>
         /// a?.b ??= new()
@@ -24,6 +43,24 @@ namespace Finanstilsynet.Altinn
             else
             {
                 throw new InvalidOperationException($"Can only assign members, eg a.b.c, not {member.Body.NodeType}");
+            }
+        }
+
+        private static object? GetMember(MemberExpression e)
+        {
+            switch (e.Expression)
+            {
+                case ConstantExpression c:
+                {
+                    return c.Value == null ? null : e.Member.GetValue(c.Value);
+                }
+                case MemberExpression m:
+                {
+                    var p = GetMember(m);
+                    return p == null ? null : e.Member.GetValue(p);
+                }
+                default:
+                    throw new InvalidOperationException();
             }
         }
 
